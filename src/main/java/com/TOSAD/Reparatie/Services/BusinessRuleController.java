@@ -37,6 +37,7 @@ public class BusinessRuleController {
         businessRuleDAO.save(businessRule);
 
         BusinessRuleAttributes businessRuleAttributes = new BusinessRuleAttributes();
+        attributes = attributes.replace("_"," ");
         businessRuleAttributes.setAttributes(attributes);
         businessRuleAttributes.setBusinessRule(businessRule);
 
