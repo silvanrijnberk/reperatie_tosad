@@ -1,5 +1,6 @@
 package com.TOSAD.Reparatie.DAO;
 
+import com.TOSAD.Reparatie.Domain.BusinessRule;
 import com.TOSAD.Reparatie.Domain.BusinessRuleAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,11 @@ public class BusinessRuleAttributesDAO {
         return businessRuleAttributesRepository.getOne(id);
     }
 
-    public BusinessRuleAttributes save(BusinessRuleAttributes businessRuleAttributes) {
-        return businessRuleAttributesRepository.save(businessRuleAttributes);
-    }
+    public BusinessRuleAttributes save(BusinessRuleAttributes businessRuleAttributes) { return businessRuleAttributesRepository.save(businessRuleAttributes); }
 
-    public void delete(BusinessRuleAttributes businessRuleAttributes) {
-        businessRuleAttributesRepository.delete(businessRuleAttributes);
+    public void delete(BusinessRuleAttributes businessRuleAttributes) { businessRuleAttributesRepository.delete(businessRuleAttributes); }
+
+    public BusinessRuleAttributes findByBusinessRule(BusinessRule businessRule) {
+        return businessRuleAttributesRepository.findByBusinessRule(businessRule);
     }
 }

@@ -17,7 +17,7 @@ public class Operators {
     private int inverted;
 
     @Column(name = "name")
-    private int name;
+    private String name;
 
     public Long getId() {
         return id;
@@ -35,11 +35,11 @@ public class Operators {
         this.inverted = inverted;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 }

@@ -1,5 +1,6 @@
 package com.TOSAD.Reparatie.DAO;
 
+import com.TOSAD.Reparatie.Domain.BusinessRule;
 import com.TOSAD.Reparatie.Domain.BusinessRuleTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class BusinessRuleTableDAO {
 
     public void delete(BusinessRuleTable businessRuleTable) {
         businessRuleTableRepository.delete(businessRuleTable);
+    }
+
+    public BusinessRuleTable findByBusinessRule(BusinessRule businessRule) {
+        return businessRuleTableRepository.findByBusinessRule(businessRule);
     }
 }

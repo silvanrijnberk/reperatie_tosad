@@ -1,23 +1,18 @@
 package com.TOSAD.Reparatie.Services;
 
-import com.TOSAD.Reparatie.DAO.BusinessRuleAttributesDAO;
-import com.TOSAD.Reparatie.DAO.BusinessRuleColumnsDAO;
-import com.TOSAD.Reparatie.DAO.BusinessRuleDAO;
-import com.TOSAD.Reparatie.DAO.BusinessRuleTableDAO;
-import com.TOSAD.Reparatie.Domain.BusinessRule;
-import com.TOSAD.Reparatie.Domain.BusinessRuleAttributes;
-import com.TOSAD.Reparatie.Domain.BusinessRuleColumns;
-import com.TOSAD.Reparatie.Domain.BusinessRuleTable;
+import com.TOSAD.Reparatie.DAO.*;
+import com.TOSAD.Reparatie.DTO.BusinessRuleDTO;
+import com.TOSAD.Reparatie.DTO.Converter;
+import com.TOSAD.Reparatie.Domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.jar.Attributes;
 
 @RestController
-@RequestMapping("/businessRules")
+@RequestMapping("/businessrules")
 public class BusinessRuleController {
 
 
@@ -29,6 +24,10 @@ public class BusinessRuleController {
     BusinessRuleColumnsDAO businessRuleColumnsDAO;
     @Autowired
     BusinessRuleTableDAO businessRuleTableDAO;
+    @Autowired
+    OperatorsDAO operatorsDAO;
+    @Autowired
+    ScriptDAO scriptDAO;
 
 //    Save An BusinessRule
     @PostMapping("/{table}/{column}/{attributes}")
@@ -63,13 +62,18 @@ public class BusinessRuleController {
 
 //    Find BusinessRule By Id
     @GetMapping("/{id}")
-    public ResponseEntity<BusinessRule> getBusinessRuleById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<BusinessRuleDTO> getBusinessRuleById(@PathVariable(value = "id") Long id) {
         BusinessRule businessRule = businessRuleDAO.findById(id);
 
         if (businessRule == null) {
             return ResponseEntity.notFound().build();
+        } else {
+            BusinessRuleTable businessRuleTables = businessRuleTableDAO.findByBusinessRule(businessRule);
+            BusinessRuleColumns businessRuleColumns = businessRuleColumnsDAO.findByBusinessRule(businessRule);
+            BusinessRuleAttributes businessRuleAttributes = businessRuleAttributesDAO.findByBusinessRule(businessRule);
+            BusinessRuleDTO businessRuleDTO = Converter.businessRuleToDTO(businessRule, businessRuleTables, businessRuleColumns, businessRuleAttributes);
+            return ResponseEntity.ok().body(businessRuleDTO);
         }
-        return ResponseEntity.ok().body(businessRule);
     }
 
 //    Delete BusinessRule By Id
