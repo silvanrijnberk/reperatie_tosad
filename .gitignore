@@ -13,6 +13,9 @@ target/
 .springBeans
 .sts4-cache
 
+### hibernate ###
+*.properties
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -29,3 +32,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+.application.properties
